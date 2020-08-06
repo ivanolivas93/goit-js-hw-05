@@ -8,8 +8,15 @@ class Storage {
   addItem(item) {
     this.items.push(item);
   }
-  removeItem(item) {
-    storage.removeItem(item);
+  removeItem(productName) {
+    for (let i = 0; i < this.items.length; i += 1) {
+      const item = this.items[i];
+
+      if (productName === item) {
+        console.log(item);
+        this.items.splice(i, 1);
+      }
+    }
   }
 }
 
