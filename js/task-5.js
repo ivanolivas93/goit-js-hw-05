@@ -1,50 +1,62 @@
+let car = {
+  maxSpeed: 300,
+  speed: 50,
+  isOn: true,
+  distance: 500,
+  price: 25000,
+};
+
 class Car {
-  static getSpecs({ maxSpeed, speed, isOn, distance, price }) {
-    console.log(
-      `maxSpeed: ${maxSpeed}, speed: ${speed}, isOn: ${isOn}, distance: ${distance}, price: ${price}`
-    );
+  constructor({
+    maxSpeed = 300,
+    speed = 0,
+    isOn = false,
+    distance = 0,
+    price = 25000,
+  }) {
+    this._maxSpeed = maxSpeed;
+    this._speed = speed;
+    this._isOn = isOn;
+    this._distance = distance;
+    this._price = price;
   }
 
-  constructor({ maxSpeed, speed = 0, isOn = false, distance = 0, price }) {
-    this.maxSpeed = maxSpeed;
-    this.speed = speed;
-    this.isOn = isOn;
-    this.distance = distance;
-    this._price = price;
+  static getSpecs(car) {
+    console.log(
+      `maxSpeed: ${car._maxSpeed}, speed: ${car._speed}, isOn: ${car._isOn}, distance: ${car._distance}, price: ${car._price}`
+    );
   }
 
   get price() {
     return this._price;
   }
 
-  set price(price) {
-    this._price = price;
+  set price(newPrice) {
+    this._price = newPrice;
   }
 
-  turnOn(isOn) {
-    isOn === true;
+  turnOn() {
+    this._isOn = true;
   }
 
-  turnOff(isOn) {
-    isOn === false;
-    this.speed === 0;
+  turnOff() {
+    this._isOn = false;
+    this._speed = 0;
   }
 
   accelerate(value) {
-    if (this.speed <= this.maxSpeed) {
-      this.speed += value;
-    }
+    let newSpeed = this._speed + value;
+    this._speed = newSpeed < this._maxSpeed ? newSpeed : this._maxSpeed;
   }
 
   decelerate(value) {
-    if (this.speed >= 0) {
-      this.speed - value;
-    }
+    let newSpeed = this._speed - value;
+    this._speed = newSpeed > 0 ? newSpeed : 0;
   }
 
   drive(hours) {
-    if (this.isOn === true) {
-      this.distance = hours * this.speed;
+    if ((this._isOn = true)) {
+      this._distance += hours * this._speed;
     }
   }
 }
